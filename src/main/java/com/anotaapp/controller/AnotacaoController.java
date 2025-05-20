@@ -1,0 +1,37 @@
+
+package com.anotaapp.controller;
+
+import com.anotaapp.model.Anotacao;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/anotacoes")
+public class AnotacaoController {
+
+    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final File arquivo = new File("anotacoes.txt");
+
+    @GetMapping
+    public List<Anotacao> listar() throws IOException {
+        if (!arquivo.exists()) return List.of();
+        return objectMapper.readValue(arquivo, new TypeReference<>() {});
+    }
+
+    @PostMapping
+    public void adicionar(@RequestBody Anotacao nova) throws IOException {
+        List<Anotacao> anotacoes = listar();
+        anotacoes.add(nova);
+        objectMapper.writeValue(arquivo, anotacoes);
+    }
+
+    @PutMapping
+    public void substituirTodas(@RequestBody List<Anotacao> novas) throws IOException {
+        objectMapper.writeValue(arquivo, novas);
+    }
+}
