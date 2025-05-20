@@ -1,4 +1,4 @@
-const api = 'https://seu-backend.onrender.com/api/anotacoes'; // ← Substitua pela URL real
+const api = 'https://menuon.onrender.com'; // ← Substitua pela URL real   https://menuon.onrender.com/api/anotacoes
 let indexEditando = null;
 let anotacoes = [];
 
