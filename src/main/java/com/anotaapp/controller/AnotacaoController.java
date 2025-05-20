@@ -19,8 +19,10 @@ public class AnotacaoController {
 
     @GetMapping
     public List<Anotacao> listar() throws IOException {
-        if (!arquivo.exists()) return List.of();
-        return objectMapper.readValue(arquivo, new TypeReference<>() {});
+        if (!arquivo.exists())
+            return new java.util.ArrayList<>();
+        return objectMapper.readValue(arquivo, new TypeReference<>() {
+        });
     }
 
     @PostMapping
